@@ -1,12 +1,5 @@
 import React from "react";
-import {
-    Image,
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Button,
-} from "react-native";
+import { Image, View, Text, TouchableOpacity } from "react-native";
 import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";

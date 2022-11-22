@@ -1,14 +1,6 @@
 import React from "react";
-import {
-    Image,
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Button,
-    ScrollView,
-} from "react-native";
-import judge from "../../../assets/images/judge.png";
+import { Image, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import register from "../../../assets/images/register.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
 
@@ -26,7 +18,7 @@ function Signup({ navigation }) {
             </Text>
             <View className="items-center mb-5">
                 <Image
-                    source={judge}
+                    source={register}
                     style={{
                         resizeMode: "center",
                         height: 150,
