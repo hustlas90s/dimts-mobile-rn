@@ -1,9 +1,18 @@
 import React from "react";
-import { withExpoSnack } from "nativewind";
+import { StatusBar, Platform, SafeAreaView } from "react-native";
 import Main from "./app/main";
 
 function App() {
-    return <Main />;
+    return (
+        <SafeAreaView
+            style={{
+                paddingTop:
+                    Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            }}
+            className="flex-1">
+            <Main />
+        </SafeAreaView>
+    );
 }
 
-export default withExpoSnack(App);
+export default App;
