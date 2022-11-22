@@ -11,7 +11,7 @@ import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
 
-function Login() {
+function Login({ navigation }) {
     const { control, handleSubmit } = useForm();
     const onSubmit = (data) => {
         console.log(data);
@@ -75,7 +75,8 @@ function Login() {
                 <View>
                     <Text
                         style={{ fontFamily: "Montserrat_400Regular" }}
-                        className="text-purple-600 text-md text-center">
+                        className="text-purple-600 text-md text-center"
+                        onPress={() => navigation.navigate("signup")}>
                         Create Account
                     </Text>
                 </View>
