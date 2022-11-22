@@ -72,9 +72,9 @@ function Signup({ navigation }) {
                 <View>
                     <TextInputField
                         control={control}
-                        fieldName="email"
-                        placeHolder="Email Address"
-                        type="email"
+                        fieldName="username"
+                        placeHolder="Username"
+                        type="text"
                         required={true}
                     />
                 </View>
