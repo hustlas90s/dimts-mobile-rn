@@ -2,6 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/auth/login";
+import Signup from "./screens/auth/signup";
 const Stack = createNativeStackNavigator();
 import {
     useFonts,
@@ -49,10 +50,15 @@ const Main = () => {
     if (!fontsLoaded) return null;
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
+            <Stack.Navigator initialRouteName="signup">
                 <Stack.Screen
-                    name="Login"
+                    name="login"
                     component={Login}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="signup"
+                    component={Signup}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
