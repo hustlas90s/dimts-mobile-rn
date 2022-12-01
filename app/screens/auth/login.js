@@ -8,6 +8,7 @@ function Login({ navigation }) {
     const { control, handleSubmit } = useForm();
     const onSubmit = (data) => {
         console.log(data);
+        navigation.navigate("Home");
     };
     return (
         <View className="flex-1 bg-white px-7 py-4">
@@ -69,7 +70,7 @@ function Login({ navigation }) {
                     <Text
                         style={{ fontFamily: "Montserrat_400Regular" }}
                         className="text-purple-600 text-md text-center"
-                        onPress={() => navigation.navigate("signup")}>
+                        onPress={() => navigation.navigate("Signup")}>
                         Create Account
                     </Text>
                 </View>
