@@ -25,6 +25,7 @@ import {
     Montserrat_900Black,
     Montserrat_900Black_Italic,
 } from "@expo-google-fonts/montserrat";
+import Home from "./screens/home/home";
 
 const Main = () => {
     let [fontsLoaded] = useFonts({
@@ -50,17 +51,18 @@ const Main = () => {
     if (!fontsLoaded) return null;
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="signup">
+            <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen
-                    name="login"
+                    name="Login"
                     component={Login}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name="signup"
+                    name="Signup"
                     component={Signup}
                     options={{ headerShown: false }}
                 />
+                <Stack.Screen name="Home" component={Home} />
             </Stack.Navigator>
         </NavigationContainer>
     );
