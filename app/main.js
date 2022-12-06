@@ -62,7 +62,11 @@ const Main = () => {
                     component={Signup}
                     options={{ headerShown: false }}
                 />
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen
+                    name="Home"
+                    component={Home}
+                    options={{ headerShown: false }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
