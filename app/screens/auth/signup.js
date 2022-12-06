@@ -1,17 +1,16 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
-import judge from "../../../assets/images/judge.png";
+import { Image, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import register from "../../../assets/images/register.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
 
-function Login({ navigation }) {
+function Signup({ navigation }) {
     const { control, handleSubmit } = useForm();
     const onSubmit = (data) => {
         console.log(data);
-        navigation.navigate("Home");
     };
     return (
-        <View className="flex-1 bg-white px-7 py-4">
+        <ScrollView className="flex-1 bg-white px-7 py-4">
             <Text
                 style={{ fontFamily: "Montserrat_800ExtraBold" }}
                 className="text-purple-600 text-2xl mb-3">
@@ -19,10 +18,10 @@ function Login({ navigation }) {
             </Text>
             <View className="items-center mb-5">
                 <Image
-                    source={judge}
+                    source={register}
                     style={{
                         resizeMode: "center",
-                        height: 240,
+                        height: 150,
                         width: "100%",
                     }}
                 />
@@ -31,10 +30,37 @@ function Login({ navigation }) {
                 <Text
                     style={{ fontFamily: "Montserrat_800ExtraBold" }}
                     className="text-gray-700 text-2xl">
-                    Login
+                    Create an Account
                 </Text>
             </View>
-            <View className="px-3 gap-y-6">
+            <View className="px-3 gap-y-4">
+                <View>
+                    <TextInputField
+                        control={control}
+                        fieldName="firstname"
+                        placeHolder="Firstname"
+                        type="text"
+                        required={true}
+                    />
+                </View>
+                <View>
+                    <TextInputField
+                        control={control}
+                        fieldName="lastname"
+                        placeHolder="Lastname"
+                        type="text"
+                        required={true}
+                    />
+                </View>
+                <View>
+                    <TextInputField
+                        control={control}
+                        fieldName="mobile"
+                        placeHolder="Mobile Number"
+                        type="number"
+                        required={true}
+                    />
+                </View>
                 <View>
                     <TextInputField
                         control={control}
@@ -62,21 +88,26 @@ function Login({ navigation }) {
                         <Text
                             style={{ fontFamily: "Montserrat_700Bold" }}
                             className="text-white text-center text-lg">
-                            Sign In
+                            Register
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <View>
                     <Text
                         style={{ fontFamily: "Montserrat_400Regular" }}
-                        className="text-purple-600 text-md text-center"
-                        onPress={() => navigation.navigate("Signup")}>
-                        Create Account
+                        className="text-gray-500 text-md text-center">
+                        Already have an account?{" "}
+                        <Text
+                            style={{ fontFamily: "Montserrat_400Regular" }}
+                            className="text-purple-600 text-md text-center"
+                            onPress={() => navigation.navigate("Login")}>
+                            Login.
+                        </Text>
                     </Text>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
-export default Login;
+export default Signup;
