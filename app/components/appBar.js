@@ -28,7 +28,12 @@ const AppBar = ({ navigation, title }) => {
                     }}>
                     Schedule
                 </Menu.Item>
-                <Menu.Item>Profile</Menu.Item>
+                <Menu.Item
+                    onPress={() => {
+                        navigation.navigate("Profile");
+                    }}>
+                    Profile
+                </Menu.Item>
                 <Menu.Item
                     onPress={() => {
                         navigation.navigate("Login");
