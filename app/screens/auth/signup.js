@@ -3,11 +3,23 @@ import { Image, View, Text, TouchableOpacity, ScrollView } from "react-native";
 import register from "../../../assets/images/register.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storeData } from "../../helpers/asyncStorage";
 
 function Signup({ navigation }) {
     const { control, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+    const saveToStorage = async (data) => {
+        await storeData("user", data).then(() => {
+            navigation.replace("Login");
+        });
+    };
+    const onSubmit = async (data) => {
         console.log(data);
+        let formData = data;
+        formData.email = "";
+        formData.address = "";
+        formData.validId = "";
+        await saveToStorage(formData);
     };
     return (
         <ScrollView className="flex-1 bg-white px-7 py-4">

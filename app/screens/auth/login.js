@@ -1,14 +1,33 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
+import {
+    Image,
+    View,
+    Text,
+    TouchableOpacity,
+    ToastAndroid,
+} from "react-native";
 import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
+import { getData } from "../../helpers/asyncStorage";
 
 function Login({ navigation }) {
     const { control, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+
+    const onSubmit = async (data) => {
         console.log(data);
-        navigation.replace("Home");
+        const userData = await getData("user");
+        console.log(userData);
+        if (
+            data.username === userData.username &&
+            data.password === userData.password
+        ) {
+            return navigation.replace("Schedule");
+        }
+        return ToastAndroid.show(
+            "Invalid username or password",
+            ToastAndroid.SHORT
+        );
     };
     return (
         <View className="flex-1 bg-white px-7 py-4">
