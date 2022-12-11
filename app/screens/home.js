@@ -10,7 +10,7 @@ const Home = ({ navigation }) => {
     }, []);
     return (
         <>
-            <AppBar navigation={navigation} title="Home" />
+            <AppBar navigation={navigation} title="Court Etiquette" />
             <View className="flex-1 bg-white">
                 <Text
                     style={{ fontFamily: "Montserrat_800ExtraBold" }}
