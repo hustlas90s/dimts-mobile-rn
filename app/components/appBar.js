@@ -18,15 +18,15 @@ const AppBar = ({ navigation, title }) => {
                 }}>
                 <Menu.Item
                     onPress={() => {
-                        navigation.replace("Home");
-                    }}>
-                    Home
-                </Menu.Item>
-                <Menu.Item
-                    onPress={() => {
                         navigation.replace("Schedule");
                     }}>
                     Schedule
+                </Menu.Item>
+                <Menu.Item
+                    onPress={() => {
+                        navigation.replace("Home");
+                    }}>
+                    Court Etiquette
                 </Menu.Item>
                 <Menu.Item
                     onPress={() => {
