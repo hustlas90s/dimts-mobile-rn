@@ -23,7 +23,6 @@ const TextInputField = ({
         if (setValue !== null && defaultValue) {
             console.log("hello");
             setValue(fieldName, defaultValue);
-            lsjkfds;
         }
     }, [defaultValue]);
 
