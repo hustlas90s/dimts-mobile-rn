@@ -29,6 +29,7 @@ const Profile = ({ navigation }) => {
         await storeData("user", data).then(() => {
             ToastAndroid.show("Profile saved", ToastAndroid.SHORT);
         });
+        await getUserData();
     };
 
     const onSubmit = async (data) => {

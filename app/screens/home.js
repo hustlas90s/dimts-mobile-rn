@@ -29,9 +29,7 @@ const Home = ({ navigation }) => {
                 </View>
                 <ScrollView className="px-4">
                     <View>
-                        <List.Section
-                            title=""
-                            style={{ backgroundColor: "white" }}>
+                        <List.Section title="">
                             <List.Accordion
                                 title="Court rules for everyone"
                                 titleStyle={{

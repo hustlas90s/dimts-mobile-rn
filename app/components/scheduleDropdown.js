@@ -55,9 +55,7 @@ const ScheduleDropdown = () => {
             <View className="flex-1 bg-white">
                 <ScrollView className="">
                     <View>
-                        <List.Section
-                            title=""
-                            style={{ backgroundColor: "white" }}>
+                        <List.Section title="">
                             {schedules.map((sched, index) => {
                                 return (
                                     <List.Accordion
