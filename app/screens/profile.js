@@ -11,6 +11,7 @@ import TextInputField from "../components/TextInputField";
 import profile from "../../assets/images/profile.png";
 import AppBar from "../components/appBar";
 import { useForm } from "react-hook-form";
+import ImagePicker from "../components/imagePicker";
 
 const Profile = ({ navigation }) => {
     const { control, handleSubmit } = useForm();
@@ -20,7 +21,7 @@ const Profile = ({ navigation }) => {
     return (
         <>
             <AppBar navigation={navigation} title="Profile" />
-            <ScrollView className="flex-1 bg-white">
+            <ScrollView className="flex-1 bg-white py-3">
                 <View className="mb-3">
                     <View className="items-center">
                         <Image
@@ -96,7 +97,7 @@ const Profile = ({ navigation }) => {
                         className="text-purple-600 text-md">
                         Valid ID
                     </Text>
-                    <View>
+                    {/* <View>
                         <TextInputField
                             control={control}
                             fieldName="valid_id_name"
@@ -104,6 +105,9 @@ const Profile = ({ navigation }) => {
                             type="text"
                             required={true}
                         />
+                    </View> */}
+                    <View>
+                        <ImagePicker />
                     </View>
                     <View className="pt-2">
                         <TouchableOpacity
