@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
     Image,
-    FlatList,
+    ToastAndroid,
     ScrollView,
     TouchableOpacity,
 } from "react-native";
@@ -12,12 +12,48 @@ import profile from "../../assets/images/profile.png";
 import AppBar from "../components/appBar";
 import { useForm } from "react-hook-form";
 import ImagePicker from "../components/imagePicker";
+import { getData, storeData } from "../helpers/asyncStorage";
 
 const Profile = ({ navigation }) => {
-    const { control, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+    const { control, handleSubmit, setValue } = useForm();
+    const [userData, setUserData] = useState({});
+    const [image, setImage] = useState(null);
+    const [imageError, setImageError] = useState(false);
+
+    const getUserData = async () => {
+        const user = await getData("user");
+        setUserData(user);
     };
+
+    const saveToStorage = async (data) => {
+        await storeData("user", data).then(() => {
+            ToastAndroid.show("Profile saved", ToastAndroid.SHORT);
+        });
+    };
+
+    const onSubmit = async (data) => {
+        console.log(data);
+        let formData = data;
+        if (!image) {
+            setImageError(true);
+            return;
+        }
+        setImageError(false);
+        formData.username = userData.username;
+        formData.password = userData.password;
+        formData.validId = image;
+
+        await saveToStorage(formData);
+    };
+
+    useEffect(() => {
+        getUserData();
+    }, []);
+
+    useEffect(() => {
+        setImage(userData.validId);
+    }, [userData]);
+
     return (
         <>
             <AppBar navigation={navigation} title="Profile" />
@@ -36,7 +72,7 @@ const Profile = ({ navigation }) => {
                     <Text
                         style={{ fontFamily: "Montserrat_700Bold" }}
                         className="text-center text-purple-600 text-xl pt-2">
-                        Jason Response
+                        {`${userData.firstname} ${userData.lastname}`}
                     </Text>
                 </View>
                 <View className="px-8 gap-y-2 mb-3">
@@ -52,6 +88,8 @@ const Profile = ({ navigation }) => {
                             placeHolder="Firstname"
                             type="text"
                             required={true}
+                            defaultValue={userData.firstname}
+                            setValue={setValue}
                         />
                     </View>
                     <View>
@@ -61,6 +99,8 @@ const Profile = ({ navigation }) => {
                             placeHolder="Lastname"
                             type="text"
                             required={true}
+                            defaultValue={userData.lastname}
+                            setValue={setValue}
                         />
                     </View>
                     <View>
@@ -70,6 +110,8 @@ const Profile = ({ navigation }) => {
                             placeHolder="Email"
                             type="email"
                             required={true}
+                            defaultValue={userData.email}
+                            setValue={setValue}
                         />
                     </View>
                     <View>
@@ -79,6 +121,8 @@ const Profile = ({ navigation }) => {
                             placeHolder="Address"
                             type="text"
                             required={true}
+                            defaultValue={userData.address}
+                            setValue={setValue}
                         />
                     </View>
                     <View>
@@ -88,6 +132,8 @@ const Profile = ({ navigation }) => {
                             placeHolder="Mobile Number"
                             type="number"
                             required={true}
+                            defaultValue={userData.mobile}
+                            setValue={setValue}
                         />
                     </View>
                 </View>
@@ -97,17 +143,13 @@ const Profile = ({ navigation }) => {
                         className="text-purple-600 text-md">
                         Valid ID
                     </Text>
-                    {/* <View>
-                        <TextInputField
-                            control={control}
-                            fieldName="valid_id_name"
-                            placeHolder="Valid ID Name"
-                            type="text"
-                            required={true}
-                        />
-                    </View> */}
                     <View>
-                        <ImagePicker />
+                        <ImagePicker
+                            image={image}
+                            setImage={setImage}
+                            error={imageError}
+                            setError={setImageError}
+                        />
                     </View>
                     <View className="pt-2">
                         <TouchableOpacity
