@@ -27,6 +27,7 @@ import {
     Montserrat_900Black_Italic,
 } from "@expo-google-fonts/montserrat";
 import Profile from "./screens/profile";
+import Schedule from "./screens/schedule";
 
 const Main = () => {
     let [fontsLoaded] = useFonts({
@@ -52,7 +53,7 @@ const Main = () => {
     if (!fontsLoaded) return null;
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Profile">
+            <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen
                     name="Login"
                     component={Login}
@@ -66,6 +67,11 @@ const Main = () => {
                 <Stack.Screen
                     name="Home"
                     component={Home}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Schedule"
+                    component={Schedule}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen

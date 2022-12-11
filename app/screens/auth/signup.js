@@ -100,7 +100,7 @@ function Signup({ navigation }) {
                         <Text
                             style={{ fontFamily: "Montserrat_400Regular" }}
                             className="text-purple-600 text-md text-center"
-                            onPress={() => navigation.navigate("Login")}>
+                            onPress={() => navigation.replace("Login")}>
                             Login.
                         </Text>
                     </Text>

@@ -9,12 +9,12 @@ function App() {
         <NativeBaseProvider>
             <PaperProvider>
                 <SafeAreaView
-                    style={{
-                        paddingTop:
-                            Platform.OS === "android"
-                                ? StatusBar.currentHeight
-                                : 0,
-                    }}
+                    // style={{
+                    //     paddingTop:
+                    //         Platform.OS === "android"
+                    //             ? StatusBar.currentHeight
+                    //             : 0,
+                    // }}
                     className="flex-1">
                     <Main />
                 </SafeAreaView>

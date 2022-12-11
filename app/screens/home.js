@@ -29,12 +29,15 @@ const Home = ({ navigation }) => {
                 </View>
                 <ScrollView className="px-4">
                     <View>
-                        <List.Section title="">
+                        <List.Section
+                            title=""
+                            style={{ backgroundColor: "white" }}>
                             <List.Accordion
                                 title="Court rules for everyone"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -86,7 +89,8 @@ const Home = ({ navigation }) => {
                                 title="Respecting the judge or magistrate"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -135,7 +139,8 @@ const Home = ({ navigation }) => {
                                 title="Defendants"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -154,7 +159,8 @@ const Home = ({ navigation }) => {
                                 title="Witnesses"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -174,7 +180,7 @@ const Home = ({ navigation }) => {
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
                                 }}
-                                className="text-purple-600">
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{

@@ -18,25 +18,25 @@ const AppBar = ({ navigation, title }) => {
                 }}>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Home");
+                        navigation.replace("Home");
                     }}>
                     Home
                 </Menu.Item>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Signup");
+                        navigation.replace("Schedule");
                     }}>
                     Schedule
                 </Menu.Item>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Profile");
+                        navigation.replace("Profile");
                     }}>
                     Profile
                 </Menu.Item>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Login");
+                        navigation.replace("Login");
                     }}>
                     Sign Out
                 </Menu.Item>
