@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-    Text,
-    Button,
-    Image,
-    View,
-    Platform,
-    TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { Text, Image, View, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-const ImageUploader = () => {
-    const [image, setImage] = useState(null);
-
+const ImageUploader = ({ image, setImage, error, setError }) => {
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -24,6 +15,7 @@ const ImageUploader = () => {
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
+            setError(false);
         }
     };
     return (
@@ -45,6 +37,7 @@ const ImageUploader = () => {
                         className="bg-red-500 rounded-md py-2"
                         onPress={() => {
                             setImage(null);
+                            setError(true);
                         }}>
                         <Text
                             style={{ fontFamily: "Montserrat_600SemiBold" }}
@@ -56,7 +49,9 @@ const ImageUploader = () => {
             ) : (
                 <TouchableOpacity
                     activeOpacity={1.0}
-                    className="bg-gray-200 flex justify-center items-center min-h-[100px] text-md rounded-md px-3 py-3 mb-1"
+                    className={`bg-gray-200 flex justify-center items-center min-h-[100px] text-md rounded-md px-3 py-3 mb-1 ${
+                        error ? "border border-red-500" : "border-none"
+                    }`}
                     onPress={() => {
                         pickImage();
                     }}>
