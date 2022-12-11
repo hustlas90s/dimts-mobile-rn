@@ -36,7 +36,7 @@ const TextInputField = ({
                 return (
                     <View>
                         <TextInput
-                            defaultValue={defaultValue}
+                            // defaultValue={defaultValue}
                             secureTextEntry={type === "password" ? true : false}
                             keyboardType={
                                 type === "number" ? "numeric" : "default"
@@ -50,6 +50,7 @@ const TextInputField = ({
                                     : "border-0"
                             } h-12 text-md rounded-md px-3 mb-1`}
                             placeholder={placeHolder}
+                            value={field.value}
                         />
                         {fieldState.error ? (
                             <Text
