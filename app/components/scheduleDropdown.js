@@ -5,47 +5,47 @@ import { List } from "react-native-paper";
 const ScheduleDropdown = () => {
     const schedules = [
         {
-            caseNo: "69",
-            crimeType: "Fucking Crime",
+            caseNo: "Th1s-i$-s5mple-No",
+            crimeType: "Hate Crime",
             date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
+            startTime: "7:30 AM",
+            endTime: "8:30 AM",
         },
-        {
-            caseNo: "80",
-            crimeType: "Fucking Crime",
-            date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
-        },
-        {
-            caseNo: "90",
-            crimeType: "Fucking Crime",
-            date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
-        },
-        {
-            caseNo: "69",
-            crimeType: "Fucking Crime",
-            date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
-        },
-        {
-            caseNo: "80",
-            crimeType: "Fucking Crime",
-            date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
-        },
-        {
-            caseNo: "90",
-            crimeType: "Fucking Crime",
-            date: "Dec 12, 2022",
-            startTime: "8:00 AM",
-            endTime: "9:00 AM",
-        },
+        // {
+        //     caseNo: "80",
+        //     crimeType: "Fucking Crime",
+        //     date: "Dec 12, 2022",
+        //     startTime: "8:00 AM",
+        //     endTime: "9:00 AM",
+        // },
+        // {
+        //     caseNo: "90",
+        //     crimeType: "Fucking Crime",
+        //     date: "Dec 12, 2022",
+        //     startTime: "8:00 AM",
+        //     endTime: "9:00 AM",
+        // },
+        // {
+        //     caseNo: "69",
+        //     crimeType: "Fucking Crime",
+        //     date: "Dec 12, 2022",
+        //     startTime: "8:00 AM",
+        //     endTime: "9:00 AM",
+        // },
+        // {
+        //     caseNo: "80",
+        //     crimeType: "Fucking Crime",
+        //     date: "Dec 12, 2022",
+        //     startTime: "8:00 AM",
+        //     endTime: "9:00 AM",
+        // },
+        // {
+        //     caseNo: "90",
+        //     crimeType: "Fucking Crime",
+        //     date: "Dec 12, 2022",
+        //     startTime: "8:00 AM",
+        //     endTime: "9:00 AM",
+        // },
     ];
     useEffect(() => {
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
