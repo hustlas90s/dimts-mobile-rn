@@ -1,25 +1,45 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+    Image,
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    ToastAndroid,
+} from "react-native";
 import register from "../../../assets/images/register.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
 import { storeData } from "../../helpers/asyncStorage";
+import { signup } from "../../redux/features/appSlice";
 
 function Signup({ navigation }) {
     const { control, handleSubmit } = useForm();
-    const saveToStorage = async (data) => {
-        await storeData("user", data).then(() => {
-            navigation.replace("Login");
-        });
-    };
+    const dispatch = useDispatch();
+    const { authLoading } = useSelector((state) => state.appState);
+
     const onSubmit = async (data) => {
-        console.log(data);
-        let formData = data;
-        formData.email = "";
-        formData.address = "";
-        formData.validId = "";
-        await saveToStorage(formData);
+        // console.log(data);
+        dispatch(signup(data)).then((res) => {
+            // console.log(res);
+            if (res.payload.hasOwnProperty("id")) {
+                return navigation.replace("Login");
+            } else {
+                if (res.payload.hasOwnProperty("username")) {
+                    return ToastAndroid.show(
+                        res.payload.username[0],
+                        ToastAndroid.SHORT
+                    );
+                }
+                if (res.payload.hasOwnProperty("email")) {
+                    return ToastAndroid.show(
+                        res.payload.email[0],
+                        ToastAndroid.SHORT
+                    );
+                }
+            }
+        });
     };
     return (
         <ScrollView className="flex-1 bg-white px-7 py-4">
@@ -45,11 +65,11 @@ function Signup({ navigation }) {
                     Create an Account
                 </Text>
             </View>
-            <View className="px-3 gap-y-4">
+            <View className="px-3 gap-y-4 mb-14">
                 <View>
                     <TextInputField
                         control={control}
-                        fieldName="firstname"
+                        fieldName="first_name"
                         placeHolder="Firstname"
                         type="text"
                         required={true}
@@ -58,18 +78,9 @@ function Signup({ navigation }) {
                 <View>
                     <TextInputField
                         control={control}
-                        fieldName="lastname"
+                        fieldName="last_name"
                         placeHolder="Lastname"
                         type="text"
-                        required={true}
-                    />
-                </View>
-                <View>
-                    <TextInputField
-                        control={control}
-                        fieldName="mobile"
-                        placeHolder="Mobile Number"
-                        type="number"
                         required={true}
                     />
                 </View>
@@ -85,13 +96,30 @@ function Signup({ navigation }) {
                 <View>
                     <TextInputField
                         control={control}
+                        fieldName="email"
+                        placeHolder="Email"
+                        type="email"
+                        required={true}
+                    />
+                </View>
+                <View>
+                    <TextInputField
+                        control={control}
                         fieldName="password"
                         placeHolder="Password"
                         type="password"
                         required={true}
                     />
                 </View>
-
+                <View>
+                    <TextInputField
+                        control={control}
+                        fieldName="contact_number"
+                        placeHolder="Contact Number"
+                        type="number"
+                        required={true}
+                    />
+                </View>
                 <View className="pt-2">
                     <TouchableOpacity
                         activeOpacity={0.9}
@@ -100,7 +128,7 @@ function Signup({ navigation }) {
                         <Text
                             style={{ fontFamily: "Montserrat_700Bold" }}
                             className="text-white text-center text-lg">
-                            Register
+                            {authLoading ? "Loading..." : "Register"}
                         </Text>
                     </TouchableOpacity>
                 </View>

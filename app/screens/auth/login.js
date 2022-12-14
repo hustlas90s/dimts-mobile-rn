@@ -10,24 +10,26 @@ import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
 import { getData } from "../../helpers/asyncStorage";
+import { GetProfile } from "../../services/profile.service";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/features/appSlice";
 
 function Login({ navigation }) {
     const { control, handleSubmit } = useForm();
+    const dispatch = useDispatch();
+    const { authLoading } = useSelector((state) => state.appState);
 
     const onSubmit = async (data) => {
         console.log(data);
-        const userData = await getData("user");
-        console.log(userData);
-        if (
-            data.username === userData.username &&
-            data.password === userData.password
-        ) {
-            return navigation.replace("Schedule");
-        }
-        return ToastAndroid.show(
-            "Invalid username or password",
-            ToastAndroid.SHORT
-        );
+        dispatch(login(data)).then((res) => {
+            if (res.payload.success) {
+                return navigation.replace("Schedule");
+            }
+            return ToastAndroid.show(
+                "Invalid username or password",
+                ToastAndroid.SHORT
+            );
+        });
     };
     return (
         <View className="flex-1 bg-white px-7 py-4">
@@ -81,7 +83,7 @@ function Login({ navigation }) {
                         <Text
                             style={{ fontFamily: "Montserrat_700Bold" }}
                             className="text-white text-center text-lg">
-                            Sign In
+                            {authLoading ? "Loading..." : "Sign In"}
                         </Text>
                     </TouchableOpacity>
                 </View>
