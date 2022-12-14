@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Login, Signup } from "../../services/auth.service";
 
 const initialState = {
     authLoading: false,
 };
-// export const adminLogin = createAsyncThunk("app/adminLogin", async (creds) => {
-//     const response = await AdminLogin(creds);
-//     return {
-//         success: response.access_token ? true : false,
-//     };
-// });
+export const login = createAsyncThunk("app/login", async (data) => {
+    const response = await Login(data);
+    return response;
+});
+
+export const signup = createAsyncThunk("app/signup", async (data) => {
+    const response = await Signup(data);
+    return response;
+});
 
 export const appSlice = createSlice({
     name: "app",
@@ -19,31 +23,38 @@ export const appSlice = createSlice({
             return { ...state, [payload.name]: payload.value };
         },
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         //Admin Login
-    //         .addCase(adminLogin.pending, (state) => {
-    //             return { ...state, loginLoading: true };
-    //         })
-    //         .addCase(adminLogin.fulfilled, (state, action) => {
-    //             const { payload } = action;
-    //             return {
-    //                 ...state,
-    //                 loginLoading: false,
-    //                 loginSuccess: payload.success,
-    //                 loginError: payload.success,
-    //                 errorToast: {
-    //                     show: payload.success ? false : true,
-    //                     message: payload.success
-    //                         ? ""
-    //                         : "Invalid email or password",
-    //                 },
-    //             };
-    //         })
-    //         .addCase(adminLogin.rejected, (state) => {
-    //             return { ...state, loginLoading: false };
-    //         });
-    // },
+    extraReducers: (builder) => {
+        builder
+            // Login
+            .addCase(login.pending, (state) => {
+                return { ...state, authLoading: true };
+            })
+            .addCase(login.fulfilled, (state, action) => {
+                const { payload } = action;
+                return {
+                    ...state,
+                    authLoading: false,
+                };
+            })
+            .addCase(login.rejected, (state) => {
+                return { ...state, authLoading: false };
+            })
+
+            //Signup
+            .addCase(signup.pending, (state) => {
+                return { ...state, authLoading: true };
+            })
+            .addCase(signup.fulfilled, (state, action) => {
+                const { payload } = action;
+                return {
+                    ...state,
+                    authLoading: false,
+                };
+            })
+            .addCase(signup.rejected, (state) => {
+                return { ...state, authLoading: false };
+            });
+    },
 });
 
 //Helpers
