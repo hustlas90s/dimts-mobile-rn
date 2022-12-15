@@ -1,16 +1,27 @@
 import React, { useEffect } from "react";
 import { View, Text, Image, FlatList, ScrollView, LogBox } from "react-native";
 import { List } from "react-native-paper";
-import rules from "../../../assets/images/etiquette.png";
-import AppBar from "../../components/appBar";
+import rules from "../../assets/images/etiquette.png";
+import AppBar from "../components/appBar";
+import { getData } from "../helpers/asyncStorage";
 
 const Home = ({ navigation }) => {
     useEffect(() => {
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     }, []);
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (!token) {
+            navigation.replace("Login");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
     return (
         <>
-            <AppBar navigation={navigation} title="Home" />
+            <AppBar navigation={navigation} title="Court Etiquette" />
             <View className="flex-1 bg-white">
                 <Text
                     style={{ fontFamily: "Montserrat_800ExtraBold" }}
@@ -34,7 +45,8 @@ const Home = ({ navigation }) => {
                                 title="Court rules for everyone"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -86,7 +98,8 @@ const Home = ({ navigation }) => {
                                 title="Respecting the judge or magistrate"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -135,7 +148,8 @@ const Home = ({ navigation }) => {
                                 title="Defendants"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -154,7 +168,8 @@ const Home = ({ navigation }) => {
                                 title="Witnesses"
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
-                                }}>
+                                }}
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{
@@ -174,7 +189,7 @@ const Home = ({ navigation }) => {
                                 titleStyle={{
                                     fontFamily: "Montserrat_500Medium",
                                 }}
-                                className="text-purple-600">
+                                style={{ backgroundColor: "white" }}>
                                 <View className="pl-6">
                                     <Text
                                         style={{

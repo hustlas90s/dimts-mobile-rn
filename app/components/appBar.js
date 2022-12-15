@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Menu, HamburgerIcon, Pressable } from "native-base";
+import { clear } from "../helpers/asyncStorage";
 
 const AppBar = ({ navigation, title }) => {
     return (
@@ -18,20 +19,26 @@ const AppBar = ({ navigation, title }) => {
                 }}>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Home");
-                    }}>
-                    Home
-                </Menu.Item>
-                <Menu.Item
-                    onPress={() => {
-                        navigation.navigate("Signup");
+                        navigation.replace("Schedule");
                     }}>
                     Schedule
                 </Menu.Item>
-                <Menu.Item>Profile</Menu.Item>
                 <Menu.Item
                     onPress={() => {
-                        navigation.navigate("Login");
+                        navigation.replace("Home");
+                    }}>
+                    Court Etiquette
+                </Menu.Item>
+                <Menu.Item
+                    onPress={() => {
+                        navigation.replace("Profile");
+                    }}>
+                    Profile
+                </Menu.Item>
+                <Menu.Item
+                    onPress={async () => {
+                        navigation.replace("Login");
+                        await clear();
                     }}>
                     Sign Out
                 </Menu.Item>

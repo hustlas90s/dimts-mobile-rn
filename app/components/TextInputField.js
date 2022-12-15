@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { fieldHelper } from "../utils/fieldHelper";
 import { View, Text, TextInput } from "react-native";
@@ -10,6 +10,8 @@ const TextInputField = ({
     type,
     required = false,
     defaultValue = "",
+    setValue = null,
+    editable = true,
 }) => {
     let ruleSet = {};
     if (required) {
@@ -18,6 +20,12 @@ const TextInputField = ({
     if (type === "email" && required) {
         ruleSet.pattern = fieldHelper.email;
     }
+    useEffect(() => {
+        if (setValue !== null && defaultValue) {
+            setValue(fieldName, defaultValue);
+        }
+    }, [defaultValue]);
+
     return (
         <Controller
             name={fieldName}
@@ -28,7 +36,8 @@ const TextInputField = ({
                 return (
                     <View>
                         <TextInput
-                            defaultValue={defaultValue}
+                            // defaultValue={defaultValue}
+                            editable={editable}
                             secureTextEntry={type === "password" ? true : false}
                             keyboardType={
                                 type === "number" ? "numeric" : "default"

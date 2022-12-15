@@ -1,15 +1,46 @@
-import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import {
+    Image,
+    View,
+    Text,
+    TouchableOpacity,
+    ToastAndroid,
+} from "react-native";
 import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
+import { getData } from "../../helpers/asyncStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/features/appSlice";
 
 function Login({ navigation }) {
     const { control, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+    const dispatch = useDispatch();
+    const { authLoading } = useSelector((state) => state.appState);
+
+    const onSubmit = async (data) => {
         console.log(data);
-        navigation.navigate("Home");
+        dispatch(login(data)).then((res) => {
+            if (res.payload.success) {
+                return navigation.replace("Schedule");
+            }
+            return ToastAndroid.show(
+                "Invalid username or password",
+                ToastAndroid.SHORT
+            );
+        });
     };
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (token) {
+            navigation.replace("Schedule");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
+
     return (
         <View className="flex-1 bg-white px-7 py-4">
             <Text
@@ -62,7 +93,7 @@ function Login({ navigation }) {
                         <Text
                             style={{ fontFamily: "Montserrat_700Bold" }}
                             className="text-white text-center text-lg">
-                            Sign In
+                            {authLoading ? "Loading..." : "Sign In"}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -70,7 +101,7 @@ function Login({ navigation }) {
                     <Text
                         style={{ fontFamily: "Montserrat_400Regular" }}
                         className="text-purple-600 text-md text-center"
-                        onPress={() => navigation.navigate("Signup")}>
+                        onPress={() => navigation.replace("Signup")}>
                         Create Account
                     </Text>
                 </View>

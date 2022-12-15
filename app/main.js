@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/auth/login";
 import Signup from "./screens/auth/signup";
 const Stack = createNativeStackNavigator();
+import Home from "./screens/home";
 import {
     useFonts,
     Montserrat_100Thin,
@@ -25,7 +26,8 @@ import {
     Montserrat_900Black,
     Montserrat_900Black_Italic,
 } from "@expo-google-fonts/montserrat";
-import Home from "./screens/home/home";
+import Profile from "./screens/profile";
+import Schedule from "./screens/schedule";
 
 const Main = () => {
     let [fontsLoaded] = useFonts({
@@ -65,6 +67,16 @@ const Main = () => {
                 <Stack.Screen
                     name="Home"
                     component={Home}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Schedule"
+                    component={Schedule}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={Profile}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
