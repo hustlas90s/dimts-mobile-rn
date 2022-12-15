@@ -22,7 +22,6 @@ const TextInputField = ({
     }
     useEffect(() => {
         if (setValue !== null && defaultValue) {
-            console.log("hello");
             setValue(fieldName, defaultValue);
         }
     }, [defaultValue]);
