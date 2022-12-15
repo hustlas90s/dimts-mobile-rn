@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Menu, HamburgerIcon, Pressable } from "native-base";
+import { clear } from "../helpers/asyncStorage";
 
 const AppBar = ({ navigation, title }) => {
     return (
@@ -35,8 +36,9 @@ const AppBar = ({ navigation, title }) => {
                     Profile
                 </Menu.Item>
                 <Menu.Item
-                    onPress={() => {
+                    onPress={async () => {
                         navigation.replace("Login");
+                        await clear();
                     }}>
                     Sign Out
                 </Menu.Item>
