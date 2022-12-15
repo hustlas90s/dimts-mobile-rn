@@ -89,9 +89,6 @@ const Profile = ({ navigation }) => {
 
     useEffect(() => {
         checkLoggedIn();
-    }, []);
-
-    useEffect(() => {
         getProfileData();
     }, []);
 
