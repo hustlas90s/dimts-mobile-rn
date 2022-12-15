@@ -8,52 +8,82 @@ import {
     TouchableOpacity,
 } from "react-native";
 import TextInputField from "../components/TextInputField";
-import profile from "../../assets/images/profile.png";
+import profileImage from "../../assets/images/profile.png";
 import AppBar from "../components/appBar";
 import { useForm } from "react-hook-form";
 import ImagePicker from "../components/imagePicker";
 import { getData, storeData } from "../helpers/asyncStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from "nanoid";
+import { getProfile, updateProfile } from "../redux/features/appSlice";
 
 const Profile = ({ navigation }) => {
     const { control, handleSubmit, setValue } = useForm();
-    const [userData, setUserData] = useState({});
+    const dispatch = useDispatch();
+    const { profileLoading } = useSelector((state) => state.appState);
+
+    const [profile, setProfile] = useState({
+        first_name: "",
+        last_name: "",
+        username: "",
+        email: "",
+        contact_number: "",
+        address: "",
+        valid_id_name: `${nanoid()}.jpg`,
+        valid_id_content: "",
+    });
     const [image, setImage] = useState(null);
     const [imageError, setImageError] = useState(false);
 
-    const getUserData = async () => {
-        const user = await getData("user");
-        setUserData(user);
-    };
-
-    const saveToStorage = async (data) => {
-        await storeData("user", data).then(() => {
-            ToastAndroid.show("Profile saved", ToastAndroid.SHORT);
+    const getProfileData = () => {
+        dispatch(getProfile()).then((res) => {
+            const data = res.payload;
+            if (data.hasOwnProperty("id")) {
+                setProfile({
+                    ...profile,
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    username: data.username,
+                    email: data.email,
+                    contact_number: data.contact_number,
+                    address: data.address,
+                    valid_id_name: data.valid_id_name,
+                    valid_id_content: data.valid_id_content,
+                });
+                setImage(data.valid_id_content);
+            }
         });
-        await getUserData();
     };
 
     const onSubmit = async (data) => {
         console.log(data);
-        let formData = data;
-        if (!image) {
+        const toUpdate = data;
+        toUpdate.valid_id_name = profile.valid_id_name;
+        toUpdate.valid_id_content = profile.valid_id_content;
+
+        if (!profile.valid_id_content) {
             setImageError(true);
             return;
         }
         setImageError(false);
-        formData.username = userData.username;
-        formData.password = userData.password;
-        formData.validId = image;
 
-        await saveToStorage(formData);
+        dispatch(updateProfile(toUpdate)).then((res) => {
+            const data = res.payload;
+            if (data.hasOwnProperty("id")) {
+                getProfileData();
+                return ToastAndroid.show("Profile updated", ToastAndroid.SHORT);
+            }
+            return ToastAndroid.show("Update unsuccessful", ToastAndroid.SHORT);
+        });
     };
 
     useEffect(() => {
-        getUserData();
+        getProfileData();
     }, []);
 
     useEffect(() => {
-        setImage(userData.validId);
-    }, [userData]);
+        setProfile({ ...profile, valid_id_content: image });
+    }, [image]);
 
     return (
         <>
@@ -62,7 +92,7 @@ const Profile = ({ navigation }) => {
                 <View className="mb-3">
                     <View className="items-center">
                         <Image
-                            source={profile}
+                            source={profileImage}
                             style={{
                                 resizeMode: "center",
                                 height: 130,
@@ -73,7 +103,7 @@ const Profile = ({ navigation }) => {
                     <Text
                         style={{ fontFamily: "Montserrat_700Bold" }}
                         className="text-center text-purple-600 text-xl pt-2">
-                        {`${userData.firstname} ${userData.lastname}`}
+                        {`${profile.first_name} ${profile.last_name}`}
                     </Text>
                 </View>
                 <View className="px-8 gap-y-2 mb-3">
@@ -85,23 +115,37 @@ const Profile = ({ navigation }) => {
                     <View>
                         <TextInputField
                             control={control}
-                            fieldName="firstname"
+                            fieldName="first_name"
                             placeHolder="Firstname"
                             type="text"
                             required={true}
-                            defaultValue={userData.firstname}
+                            defaultValue={profile.first_name}
                             setValue={setValue}
+                            editable={false}
                         />
                     </View>
                     <View>
                         <TextInputField
                             control={control}
-                            fieldName="lastname"
+                            fieldName="last_name"
                             placeHolder="Lastname"
                             type="text"
                             required={true}
-                            defaultValue={userData.lastname}
+                            defaultValue={profile.last_name}
                             setValue={setValue}
+                            editable={false}
+                        />
+                    </View>
+                    <View>
+                        <TextInputField
+                            control={control}
+                            fieldName="username"
+                            placeHolder="Username"
+                            type="text"
+                            required={true}
+                            defaultValue={profile.username}
+                            setValue={setValue}
+                            editable={false}
                         />
                     </View>
                     <View>
@@ -111,7 +155,19 @@ const Profile = ({ navigation }) => {
                             placeHolder="Email"
                             type="email"
                             required={true}
-                            defaultValue={userData.email}
+                            defaultValue={profile.email}
+                            setValue={setValue}
+                            editable={false}
+                        />
+                    </View>
+                    <View>
+                        <TextInputField
+                            control={control}
+                            fieldName="contact_number"
+                            placeHolder="Mobile Number"
+                            type="number"
+                            required={true}
+                            defaultValue={profile.contact_number}
                             setValue={setValue}
                         />
                     </View>
@@ -122,18 +178,7 @@ const Profile = ({ navigation }) => {
                             placeHolder="Address"
                             type="text"
                             required={true}
-                            defaultValue={userData.address}
-                            setValue={setValue}
-                        />
-                    </View>
-                    <View>
-                        <TextInputField
-                            control={control}
-                            fieldName="mobile"
-                            placeHolder="Mobile Number"
-                            type="number"
-                            required={true}
-                            defaultValue={userData.mobile}
+                            defaultValue={profile.address}
                             setValue={setValue}
                         />
                     </View>
@@ -152,7 +197,7 @@ const Profile = ({ navigation }) => {
                             setError={setImageError}
                         />
                     </View>
-                    <View className="pt-2">
+                    <View className="pt-2 mb-8">
                         <TouchableOpacity
                             activeOpacity={0.9}
                             className="bg-purple-600 rounded-md py-3"
@@ -160,7 +205,7 @@ const Profile = ({ navigation }) => {
                             <Text
                                 style={{ fontFamily: "Montserrat_700Bold" }}
                                 className="text-white text-center text-lg">
-                                Save
+                                {profileLoading ? "Loading..." : "Save"}
                             </Text>
                         </TouchableOpacity>
                     </View>
