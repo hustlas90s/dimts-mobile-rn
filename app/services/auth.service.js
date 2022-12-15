@@ -1,4 +1,5 @@
 import { getData, storeData } from "../helpers/asyncStorage";
+import jwt_decode from "jwt-decode";
 import { api } from "./axios";
 
 export const Login = async (data) => {
@@ -8,7 +9,9 @@ export const Login = async (data) => {
             password: data.password,
         });
         if (res) {
+            const id = jwt_decode(res.data.access).user_id;
             await storeData("access_token", res.data.access);
+            await storeData("user_id", id);
             return { success: true };
         }
     } catch (error) {
@@ -19,12 +22,9 @@ export const Signup = async (data) => {
     try {
         const newData = data;
         newData.role = "citizen";
-        console.log("New Data: ", newData);
         const res = await api.post("/register/", newData);
-        console.log(res.data);
         return res.data;
     } catch (error) {
-        console.log(error.response.data);
         return error.response.data;
     }
 };
