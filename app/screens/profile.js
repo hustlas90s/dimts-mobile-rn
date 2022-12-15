@@ -35,24 +35,27 @@ const Profile = ({ navigation }) => {
     const [image, setImage] = useState(null);
     const [imageError, setImageError] = useState(false);
 
-    const getProfileData = () => {
-        dispatch(getProfile()).then((res) => {
-            const data = res.payload;
-            if (data.hasOwnProperty("id")) {
-                setProfile({
-                    ...profile,
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    username: data.username,
-                    email: data.email,
-                    contact_number: data.contact_number,
-                    address: data.address,
-                    valid_id_name: data.valid_id_name,
-                    valid_id_content: data.valid_id_content,
-                });
-                setImage(data.valid_id_content);
-            }
-        });
+    const getProfileData = async () => {
+        const id = await getData("user_id");
+        if (id) {
+            dispatch(getProfile()).then((res) => {
+                const data = res.payload;
+                if (data.hasOwnProperty("id")) {
+                    setProfile({
+                        ...profile,
+                        first_name: data.first_name,
+                        last_name: data.last_name,
+                        username: data.username,
+                        email: data.email,
+                        contact_number: data.contact_number,
+                        address: data.address,
+                        valid_id_name: data.valid_id_name,
+                        valid_id_content: data.valid_id_content,
+                    });
+                    setImage(data.valid_id_content);
+                }
+            });
+        }
     };
 
     const onSubmit = async (data) => {
