@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Image,
     View,
@@ -10,7 +10,6 @@ import judge from "../../../assets/images/judge.png";
 import TextInputField from "../../components/TextInputField";
 import { useForm } from "react-hook-form";
 import { getData } from "../../helpers/asyncStorage";
-import { GetProfile } from "../../services/profile.service";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/features/appSlice";
 
@@ -31,6 +30,17 @@ function Login({ navigation }) {
             );
         });
     };
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (token) {
+            navigation.replace("Schedule");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
+
     return (
         <View className="flex-1 bg-white px-7 py-4">
             <Text

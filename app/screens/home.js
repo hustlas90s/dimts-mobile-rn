@@ -3,10 +3,21 @@ import { View, Text, Image, FlatList, ScrollView, LogBox } from "react-native";
 import { List } from "react-native-paper";
 import rules from "../../assets/images/etiquette.png";
 import AppBar from "../components/appBar";
+import { getData } from "../helpers/asyncStorage";
 
 const Home = ({ navigation }) => {
     useEffect(() => {
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    }, []);
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (!token) {
+            navigation.replace("Login");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
     }, []);
     return (
         <>

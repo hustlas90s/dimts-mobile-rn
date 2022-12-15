@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import AppBar from "../components/appBar";
 import ScheduleDropdown from "../components/scheduleDropdown";
+import { getData } from "../helpers/asyncStorage";
 
 const Schedule = ({ navigation }) => {
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (!token) {
+            navigation.replace("Login");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
     return (
         <>
             <AppBar navigation={navigation} title="Schedule" />

@@ -77,6 +77,17 @@ const Profile = ({ navigation }) => {
         });
     };
 
+    const checkLoggedIn = async () => {
+        const token = await getData("access_token");
+        if (!token) {
+            navigation.replace("Login");
+        }
+    };
+
+    useEffect(() => {
+        checkLoggedIn();
+    }, []);
+
     useEffect(() => {
         getProfileData();
     }, []);
