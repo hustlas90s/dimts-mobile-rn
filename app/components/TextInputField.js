@@ -11,6 +11,7 @@ const TextInputField = ({
     required = false,
     defaultValue = "",
     setValue = null,
+    editable = true,
 }) => {
     let ruleSet = {};
     if (required) {
@@ -37,6 +38,7 @@ const TextInputField = ({
                     <View>
                         <TextInput
                             // defaultValue={defaultValue}
+                            editable={editable}
                             secureTextEntry={type === "password" ? true : false}
                             keyboardType={
                                 type === "number" ? "numeric" : "default"
