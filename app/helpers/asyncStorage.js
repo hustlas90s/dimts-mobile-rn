@@ -15,3 +15,19 @@ export const getData = async (key) => {
         console.log(e);
     }
 };
+
+export const removeData = async (key) => {
+    try {
+        await AsyncStorage.removeItem(key);
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const clear = async () => {
+    try {
+        await AsyncStorage.clear();
+    } catch (e) {
+        console.log(e);
+    }
+};
