@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Login, Signup } from "../../services/auth.service";
 import { GetProfile, UpdateProfile } from "../../services/profile.service";
+import { GetSchedules } from "../../services/schedule.service";
 
 const initialState = {
     authLoading: false,
@@ -19,6 +20,11 @@ export const signup = createAsyncThunk("app/signup", async (data) => {
 
 export const getProfile = createAsyncThunk("app/getProfile", async () => {
     const response = await GetProfile();
+    return response;
+});
+
+export const getSchedules = createAsyncThunk("app/getSchedules", async () => {
+    const response = await GetSchedules();
     return response;
 });
 

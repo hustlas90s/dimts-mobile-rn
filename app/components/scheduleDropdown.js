@@ -2,51 +2,16 @@ import React, { useEffect } from "react";
 import { View, Text, ScrollView, LogBox } from "react-native";
 import { List } from "react-native-paper";
 
-const ScheduleDropdown = () => {
-    const schedules = [
-        {
-            caseNo: "Th1s-i$-s5mple-No",
-            crimeType: "Hate Crime",
-            date: "Dec 12, 2022",
-            startTime: "7:30 AM",
-            endTime: "8:30 AM",
-        },
-        // {
-        //     caseNo: "80",
-        //     crimeType: "Fucking Crime",
-        //     date: "Dec 12, 2022",
-        //     startTime: "8:00 AM",
-        //     endTime: "9:00 AM",
-        // },
-        // {
-        //     caseNo: "90",
-        //     crimeType: "Fucking Crime",
-        //     date: "Dec 12, 2022",
-        //     startTime: "8:00 AM",
-        //     endTime: "9:00 AM",
-        // },
-        // {
-        //     caseNo: "69",
-        //     crimeType: "Fucking Crime",
-        //     date: "Dec 12, 2022",
-        //     startTime: "8:00 AM",
-        //     endTime: "9:00 AM",
-        // },
-        // {
-        //     caseNo: "80",
-        //     crimeType: "Fucking Crime",
-        //     date: "Dec 12, 2022",
-        //     startTime: "8:00 AM",
-        //     endTime: "9:00 AM",
-        // },
-        // {
-        //     caseNo: "90",
-        //     crimeType: "Fucking Crime",
-        //     date: "Dec 12, 2022",
-        //     startTime: "8:00 AM",
-        //     endTime: "9:00 AM",
-        // },
-    ];
+const ScheduleDropdown = ({ schedules }) => {
+    // const schedules = [
+    //     {
+    //         caseNo: "Th1s-i$-s5mple-No",
+    //         crimeType: "Hate Crime",
+    //         date: "Dec 12, 2022",
+    //         startTime: "7:30 AM",
+    //         endTime: "8:30 AM",
+    //     },
+    // ];
     useEffect(() => {
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     }, []);
@@ -60,7 +25,7 @@ const ScheduleDropdown = () => {
                                 return (
                                     <List.Accordion
                                         key={index}
-                                        title={`Case No. ${sched.caseNo} - ${sched.date}`}
+                                        title={`Case No. ${sched.case__case_no} - ${sched.case__crime_type}`}
                                         titleStyle={{
                                             fontFamily: "Montserrat_500Medium",
                                         }}
@@ -79,7 +44,7 @@ const ScheduleDropdown = () => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.caseNo}
+                                                    {sched.case__case_no}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -95,7 +60,7 @@ const ScheduleDropdown = () => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.crimeType}
+                                                    {sched.case__crime_type}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -111,7 +76,7 @@ const ScheduleDropdown = () => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.date}
+                                                    {sched.hearing_schedule}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -127,7 +92,7 @@ const ScheduleDropdown = () => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.startTime}
+                                                    {sched.start_time}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -143,7 +108,7 @@ const ScheduleDropdown = () => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.endTime}
+                                                    {sched.end_time}
                                                 </Text>
                                             </Text>
                                         </View>
