@@ -9,6 +9,7 @@ const initialState = {
     profile: {},
 };
 export const login = createAsyncThunk("app/login", async (data) => {
+    console.log(data);
     const response = await Login(data);
     return response;
 });
