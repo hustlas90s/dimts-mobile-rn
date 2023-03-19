@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Image,
     View,
@@ -13,16 +13,29 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../helpers/asyncStorage";
 import { signup } from "../../redux/features/appSlice";
+import { nanoid } from "nanoid";
+import ImagePicker from "../../components/imagePicker";
 
 function Signup({ navigation }) {
     const { control, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const { authLoading } = useSelector((state) => state.appState);
 
+    const [image, setImage] = useState(null);
+    const [imageError, setImageError] = useState(false);
+
     const onSubmit = async (data) => {
-        // console.log(data);
-        dispatch(signup(data)).then((res) => {
-            // console.log(res);
+        const signupData = data;
+        signupData.valid_id_name = `${nanoid()}.jpg`;
+        signupData.valid_id_content = image;
+
+        if (!image) {
+            setImageError(true);
+            return;
+        }
+        setImageError(false);
+
+        dispatch(signup(signupData)).then((res) => {
             if (res.payload.hasOwnProperty("id")) {
                 return navigation.replace("Login");
             } else {
@@ -130,6 +143,19 @@ function Signup({ navigation }) {
                         placeHolder="Contact Number"
                         type="number"
                         required={true}
+                    />
+                </View>
+                <Text
+                    style={{ fontFamily: "Montserrat_600SemiBold" }}
+                    className="text-purple-600 text-md">
+                    Valid ID
+                </Text>
+                <View>
+                    <ImagePicker
+                        image={image}
+                        setImage={setImage}
+                        error={imageError}
+                        setError={setImageError}
                     />
                 </View>
                 <View className="pt-2">
