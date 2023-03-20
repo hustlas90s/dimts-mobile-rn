@@ -8,6 +8,7 @@ export const Login = async (data) => {
             username: data.username,
             password: data.password,
         });
+        console.log('Login response: ', res)
         if (res) {
             const id = jwt_decode(res.data.access).user_id;
             await storeData("access_token", res.data.access);
@@ -23,6 +24,8 @@ export const Signup = async (data) => {
         const newData = data;
         newData.role = "citizen";
         const res = await api.post("/register/", newData);
+        // const res = await api.get("/clustering/");
+        console.log("Signup response: ", res)
         return res.data;
     } catch (error) {
         return error.response.data;

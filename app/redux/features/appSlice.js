@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Login, Signup } from "../../services/auth.service";
-import { GetProfile, UpdateProfile } from "../../services/profile.service";
+import { GetProfile, UpdateProfile, GetCitizenCases } from "../../services/profile.service";
 
 const initialState = {
     authLoading: false,
     profileLoading: false,
     profile: {},
+    citizenCases : []
 };
+
 export const login = createAsyncThunk("app/login", async (data) => {
     const response = await Login(data);
     return response;
@@ -29,6 +31,13 @@ export const updateProfile = createAsyncThunk(
         return response;
     }
 );
+
+export const getCitizenCases = createAsyncThunk(
+    "app/getCitizenCases",
+    async () => {
+        return await GetCitizenCases()
+    }
+)
 
 export const appSlice = createSlice({
     name: "app",
@@ -99,6 +108,22 @@ export const appSlice = createSlice({
                 };
             })
             .addCase(updateProfile.rejected, (state) => {
+                return { ...state, profileLoading: false };
+            })
+
+            // Get Citizen Cases
+            .addCase(getCitizenCases.pending, (state) => {
+                return { ...state, profileLoading: true };
+            })
+            .addCase(getCitizenCases.fulfilled, (state, action) => {
+                const { payload } = action;
+                return {
+                    ...state,
+                    profileLoading: false,
+                    citizenCases : payload
+                };
+            })
+            .addCase(getCitizenCases.rejected, (state) => {
                 return { ...state, profileLoading: false };
             });
     },

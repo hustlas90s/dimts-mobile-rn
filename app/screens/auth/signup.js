@@ -20,9 +20,7 @@ function Signup({ navigation }) {
     const { authLoading } = useSelector((state) => state.appState);
 
     const onSubmit = async (data) => {
-        // console.log(data);
         dispatch(signup(data)).then((res) => {
-            // console.log(res);
             if (res.payload.hasOwnProperty("id")) {
                 return navigation.replace("Login");
             } else {

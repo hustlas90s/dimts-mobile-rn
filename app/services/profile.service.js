@@ -30,3 +30,17 @@ export const UpdateProfile = async (data) => {
         return error.response.data;
     }
 };
+
+export const GetCitizenCases = async () => {
+    try {
+        const token = await getData("access_token");
+        const res = await api.put(`/citizen_cases/`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return JSON.parse(res.data);
+    } catch (error) {
+        return error.response.data;
+    }
+}
