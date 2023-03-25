@@ -59,7 +59,6 @@ const Profile = ({ navigation }) => {
     };
 
     const onSubmit = async (data) => {
-        console.log(data);
         const toUpdate = data;
         toUpdate.valid_id_name = profile.valid_id_name;
         toUpdate.valid_id_content = profile.valid_id_content;
@@ -89,9 +88,6 @@ const Profile = ({ navigation }) => {
 
     useEffect(() => {
         checkLoggedIn();
-    }, []);
-
-    useEffect(() => {
         getProfileData();
     }, []);
 
