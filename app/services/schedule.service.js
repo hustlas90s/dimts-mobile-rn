@@ -4,7 +4,7 @@ import { api } from "./axios";
 export const GetSchedules = async () => {
     try {
         const token = await getData("access_token");
-        const res = await api.get("/current_hearings/", {
+        const res = await api.get("/citizen_cases/", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -24,6 +24,7 @@
         "expo-notifications": "~0.17.0",
         "expo-status-bar": "~1.4.2",
         "jwt-decode": "^3.1.2",
+        "moment": "^2.29.4",
         "nanoid": "^4.0.0",
         "native-base": "^3.4.25",
         "nativewind": "^2.0.11",

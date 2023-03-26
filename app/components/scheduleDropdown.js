@@ -1,17 +1,10 @@
-import React, { useEffect } from "react";
-import { View, Text, ScrollView, LogBox } from "react-native";
+import React, { useEffect, useState } from "react";
+import moment from "moment"
+import { View, Text, ScrollView, LogBox, Image } from "react-native";
 import { List } from "react-native-paper";
 
 const ScheduleDropdown = ({ schedules }) => {
-    // const schedules = [
-    //     {
-    //         caseNo: "Th1s-i$-s5mple-No",
-    //         crimeType: "Hate Crime",
-    //         date: "Dec 12, 2022",
-    //         startTime: "7:30 AM",
-    //         endTime: "8:30 AM",
-    //     },
-    // ];
+
     useEffect(() => {
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     }, []);
@@ -21,11 +14,11 @@ const ScheduleDropdown = ({ schedules }) => {
                 <ScrollView className="">
                     <View>
                         <List.Section title="">
-                            {schedules.map((sched, index) => {
+                            {schedules.length > 0 ? schedules.map((sched, index) => {
                                 return (
                                     <List.Accordion
                                         key={index}
-                                        title={`Case No. ${sched.case__case_no} - ${sched.case__crime_type}`}
+                                        title={`${sched.case__case_no}`}
                                         titleStyle={{
                                             fontFamily: "Montserrat_500Medium",
                                         }}
@@ -36,8 +29,8 @@ const ScheduleDropdown = ({ schedules }) => {
                                                     fontFamily:
                                                         "Montserrat_600SemiBold",
                                                 }}
-                                                className="text-sm mb-1 text-purple-600">
-                                                {"Case No.: "}
+                                                className="text-sm py-2 text-purple-600">
+                                                {"Case No: "}
                                                 <Text
                                                     style={{
                                                         fontFamily:
@@ -52,7 +45,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                     fontFamily:
                                                         "Montserrat_600SemiBold",
                                                 }}
-                                                className="text-sm mb-1 text-purple-600">
+                                                className="text-sm py-2 text-purple-600">
                                                 {"Crime Type: "}
                                                 <Text
                                                     style={{
@@ -60,7 +53,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.case__crime_type}
+                                                    {sched.case__crime_type.includes("[") ? sched.case__crime_type.slice(1, -1).replace(/['"]+/g, "") : sched.case__crime_type}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -68,7 +61,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                     fontFamily:
                                                         "Montserrat_600SemiBold",
                                                 }}
-                                                className="text-sm mb-1 text-purple-600">
+                                                className="text-sm py-2 text-purple-600">
                                                 {"Date: "}
                                                 <Text
                                                     style={{
@@ -76,7 +69,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.hearing_schedule}
+                                                    {moment(sched.hearing_schedule).format("LL")}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -84,7 +77,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                     fontFamily:
                                                         "Montserrat_600SemiBold",
                                                 }}
-                                                className="text-sm mb-1 text-purple-600">
+                                                className="text-sm py-2 text-purple-600">
                                                 {"Start Time: "}
                                                 <Text
                                                     style={{
@@ -92,7 +85,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.start_time}
+                                                    {moment(sched.start_time, "HH:mm").format("hh:mm A")}
                                                 </Text>
                                             </Text>
                                             <Text
@@ -100,7 +93,7 @@ const ScheduleDropdown = ({ schedules }) => {
                                                     fontFamily:
                                                         "Montserrat_600SemiBold",
                                                 }}
-                                                className="text-sm mb-1 text-purple-600">
+                                                className="text-sm py-2 text-purple-600">
                                                 {"End Time: "}
                                                 <Text
                                                     style={{
@@ -108,13 +101,38 @@ const ScheduleDropdown = ({ schedules }) => {
                                                             "Montserrat_500Medium",
                                                     }}
                                                     className="text-sm mb-2 text-gray-700">
-                                                    {sched.end_time}
+                                                    {moment(sched.end_time, "HH:mm").format("hh:mm A")}
+                                                </Text>
+                                            </Text>
+                                            <Text
+                                                style={{
+                                                    fontFamily:
+                                                        "Montserrat_600SemiBold",
+                                                }}
+                                                className="text-sm py-2 text-purple-600">
+                                                {"Hearing: "}
+                                                <Text
+                                                    style={{
+                                                        fontFamily:
+                                                            "Montserrat_500Medium",
+                                                    }}
+                                                    className="text-sm mb-2 text-gray-700">
+                                                    {sched.hearing_type}
                                                 </Text>
                                             </Text>
                                         </View>
                                     </List.Accordion>
                                 );
-                            })}
+                            }) 
+                            : <Text
+                                    style={{
+                                        fontFamily:
+                                            "Montserrat_500Medium",
+                                    }}
+                                    className="text-sm mb-2 text-gray-700">
+                                    No hearing schedules available.
+                                </Text>
+                            }
                         </List.Section>
                     </View>
                 </ScrollView>
