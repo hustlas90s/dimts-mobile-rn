@@ -6,8 +6,10 @@ import { GetSchedules } from "../../services/schedule.service";
 const initialState = {
     authLoading: false,
     profileLoading: false,
+    scheduleLoading : false,
     profile: {},
-    citizenCases : []
+    citizenCases : [],
+    caseSchedules : []
 };
 
 export const login = createAsyncThunk("app/login", async (data) => {
@@ -118,20 +120,36 @@ export const appSlice = createSlice({
                 return { ...state, profileLoading: false };
             })
 
+            // Get Schedules
+            .addCase(getSchedules.pending, (state) => {
+                return { ...state, scheduleLoading: true };
+            })
+            .addCase(getSchedules.fulfilled, (state, action) => {
+                const { payload } = action;
+                return {
+                    ...state,
+                    scheduleLoading: false,
+                    caseSchedules : payload
+                };
+            })
+            .addCase(getSchedules.rejected, (state) => {
+                return { ...state, scheduleLoading: false };
+            })
+
             // Get Citizen Cases
             .addCase(getCitizenCases.pending, (state) => {
-                return { ...state, profileLoading: true };
+                return { ...state, scheduleLoading: true };
             })
             .addCase(getCitizenCases.fulfilled, (state, action) => {
                 const { payload } = action;
                 return {
                     ...state,
-                    profileLoading: false,
+                    scheduleLoading: false,
                     citizenCases : payload
                 };
             })
             .addCase(getCitizenCases.rejected, (state) => {
-                return { ...state, profileLoading: false };
+                return { ...state, scheduleLoading: false };
             });
     },
 });

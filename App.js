@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./app/redux/store";
 import Main from "./app/main";
 import Notification from "./app/components/notification";
+import BottomNav from "./app/BottomNav";
 
 function App() {
     return (
@@ -21,7 +22,8 @@ function App() {
                                     : 0,
                         }}
                         className="flex-1">
-                        <Main />
+                        {/* <Main /> */}
+                        <BottomNav />
                         <View className="hidden">
                             <Notification />
                         </View>
