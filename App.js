@@ -5,9 +5,8 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { NativeBaseProvider } from "native-base";
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
-import Main from "./app/main";
+import Main from "./app/Main";
 import Notification from "./app/components/notification";
-import BottomNav from "./app/BottomNav";
 
 function App() {
     return (
@@ -22,8 +21,7 @@ function App() {
                                     : 0,
                         }}
                         className="flex-1">
-                        {/* <Main /> */}
-                        <BottomNav />
+                        <Main />
                         <View className="hidden">
                             <Notification />
                         </View>

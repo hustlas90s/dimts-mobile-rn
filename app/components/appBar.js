@@ -17,7 +17,7 @@ const AppBar = ({ navigation, title }) => {
                         </Pressable>
                     );
                 }}>
-                <Menu.Item
+                {/* <Menu.Item
                     onPress={() => {
                         navigation.replace("Schedule");
                     }}>
@@ -34,7 +34,7 @@ const AppBar = ({ navigation, title }) => {
                         navigation.replace("Profile");
                     }}>
                     Profile
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item
                     onPress={async () => {
                         navigation.replace("Login");
@@ -43,7 +43,7 @@ const AppBar = ({ navigation, title }) => {
                     Sign Out
                 </Menu.Item>
             </Menu>
-            <View className="flex flex-row items-center">
+            {/* <View className="flex flex-row items-center">
                 <Text
                     style={{
                         fontFamily: "Montserrat_600SemiBold",
@@ -51,7 +51,7 @@ const AppBar = ({ navigation, title }) => {
                     className="text-md">
                     {title}
                 </Text>
-            </View>
+            </View> */}
             <HamburgerIcon size={6} color="#ffffff" />
         </View>
     );

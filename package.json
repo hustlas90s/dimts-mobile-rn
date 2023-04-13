@@ -25,6 +25,7 @@
         "expo-image-picker": "~14.0.2",
         "expo-notifications": "~0.17.0",
         "expo-status-bar": "~1.4.2",
+        "firebase": "^9.19.1",
         "jwt-decode": "^3.1.2",
         "moment": "^2.29.4",
         "nanoid": "^4.0.0",

@@ -23,7 +23,6 @@ export const Signup = async (data) => {
     try {
         const newData = data;
         newData.role = "citizen";
-        console.log("New Data", newData);
         const res = await api.post("/register/", newData);
         // const res = await api.get("/clustering/");
         console.log("Signup response: ", res)

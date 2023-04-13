@@ -22,7 +22,7 @@ function Login({ navigation }) {
         console.log(data);
         dispatch(login(data)).then((res) => {
             if (res.payload.success) {
-                return navigation.replace("Schedule");
+                return navigation.replace("Home");
             }
             return ToastAndroid.show(
                 "Invalid username or password",
@@ -33,7 +33,7 @@ function Login({ navigation }) {
     const checkLoggedIn = async () => {
         const token = await getData("access_token");
         if (token) {
-            navigation.replace("Schedule");
+            navigation.replace("Home");
         }
     };
 

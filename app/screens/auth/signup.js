@@ -36,29 +36,31 @@ function Signup({ navigation }) {
         setImageError(false);
 
         dispatch(signup(signupData)).then((res) => {
-            if (res.payload.hasOwnProperty("id")) {
+            if (res.payload !== undefined) {
+                if (!res.payload.hasOwnProperty("id")) {
+                    if (res.payload.hasOwnProperty("username")) {
+                        return ToastAndroid.show(
+                            res.payload.username[0],
+                            ToastAndroid.SHORT
+                        );
+                    }
+                    if (res.payload.hasOwnProperty("email")) {
+                        return ToastAndroid.show(
+                            res.payload.email[0],
+                            ToastAndroid.SHORT
+                        );
+                    }
+                }
                 return navigation.replace("Login");
-            } else {
-                if (res.payload.hasOwnProperty("username")) {
-                    return ToastAndroid.show(
-                        res.payload.username[0],
-                        ToastAndroid.SHORT
-                    );
-                }
-                if (res.payload.hasOwnProperty("email")) {
-                    return ToastAndroid.show(
-                        res.payload.email[0],
-                        ToastAndroid.SHORT
-                    );
-                }
-            }
+            } 
+            console.log("This is the response: ", res)
         });
     };
 
     const checkLoggedIn = async () => {
         const token = await getData("access_token");
         if (token) {
-            navigation.replace("Schedule");
+            navigation.replace("Home");
         }
     };
 

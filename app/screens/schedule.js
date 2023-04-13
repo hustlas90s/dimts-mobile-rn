@@ -6,6 +6,8 @@ import { getData } from "../helpers/asyncStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedules } from "../redux/features/appSlice";
 import CustomCalendar from "../components/CustomCalendar";
+import { Ionicons } from "@expo/vector-icons";
+import moment from "moment";
 
 const Schedule = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -16,8 +18,9 @@ const Schedule = ({ navigation }) => {
 
     const fetchSchedules = () => {
         dispatch(getSchedules()).then((res) => {
-            if (res.payload.length) {
+            if (res.payload !== undefined && res.payload.length) {
                 let marks = {}
+                console.log("Schedules: ", res.payload)
                 // setSchedules(res.payload);
                 res.payload.map((data) => {
                     marks[data.hearing_schedule] = {
@@ -74,7 +77,7 @@ const Schedule = ({ navigation }) => {
                     />
                 )}
                 {
-                    Object.keys(selectedSchedule).length > 0 ?
+                    selectedSchedule ?
                     <View className="w-full p-3 flex flex-col gap-y-1">
                         <View className="flex flex-row items-center gap-x-3">
                             <Ionicons
@@ -82,9 +85,9 @@ const Schedule = ({ navigation }) => {
                                 size={22}
                                 color="#9333ea"
                             />
-                            <Text style={{ fontFamily: "Montserrat_500Medium" }} className="text-gray-700 text-sm">This is a document notification text</Text>
+                            <Text style={{ fontFamily: "Montserrat_500Medium" }} className="text-gray-700 text-sm">{ selectedSchedule.case__case_no }</Text>
                         </View>
-                        <Text style={{ fontFamily: "Montserrat_300Light" }} className="text-gray-500 text-xs">5:00PM - 7:00PM</Text>
+                        <Text style={{ fontFamily: "Montserrat_300Light" }} className="text-gray-500 text-xs">{ moment(selectedSchedule.start_time, "HH:mm").format("hh:mm A") } - { moment(selectedSchedule.end_time, "HH:mm").format("hh:mm A") }</Text>
                     </View>
                     : null
                 }

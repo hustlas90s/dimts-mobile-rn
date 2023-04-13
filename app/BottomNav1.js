@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 // import Login from "./screens/auth/login";
 // import Signup from "./screens/auth/signup";
@@ -56,8 +57,9 @@ const BottomNav = () => {
     });
     if (!fontsLoaded) return null;
     return (
+        <NavigationContainer>
         <Tab.Navigator
-            initialRouteName="Hearing Schedules"
+            initialRouteName="Court Etiquette"
             // tabBarOptions={{
             //     tabStyle: { justifyContent: 'center', alignItems: 'center' },
             // }}
@@ -158,6 +160,7 @@ const BottomNav = () => {
                 }}
             />
         </Tab.Navigator>
+        </NavigationContainer>
     );
 }
 

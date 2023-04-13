@@ -97,7 +97,7 @@ const Profile = ({ navigation }) => {
 
     return (
         <>
-            {/* <AppBar navigation={navigation} title="Profile" /> */}
+            <AppBar navigation={navigation} title="Profile" />
             <ScrollView className="flex-1 bg-white py-3">
                 <View className="mb-3">
                     <View className="items-center">
