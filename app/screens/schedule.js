@@ -77,7 +77,7 @@ const Schedule = ({ navigation }) => {
                     />
                 )}
                 {
-                    selectedSchedule ?
+                    selectedSchedule?.start_time !== undefined ?
                     <View className="w-full p-3 flex flex-col gap-y-1">
                         <View className="flex flex-row items-center gap-x-3">
                             <Ionicons

@@ -75,7 +75,7 @@ const Schedule = ({ navigation }) => {
                                     </View>
                                 </View>
                             )
-                        }) : null
+                        }) : <Text style={{ fontFamily: "Montserrat_300Light" }} className="text-gray-700 text-base tracking-widest text-center">No available notifications</Text>
                     }
                     {/*  */}
                     {/* <View className="w-full p-3 flex flex-col gap-y-1">
