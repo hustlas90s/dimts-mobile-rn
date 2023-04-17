@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { getData } from "../helpers/asyncStorage";
 import { Ionicons } from "@expo/vector-icons";
 import db from '../../firebaseConfig'
@@ -61,7 +61,9 @@ const Schedule = ({ navigation }) => {
                     {
                         notifs.length > 0 ? notifs.map((notif, index) => {
                             return (
-                                <View key={notif.activity_name + index} className="flex flex-row items-center gap-x-3">
+                                <TouchableOpacity key={notif.activity_name + index} className="flex flex-row items-center gap-x-3" onPress={() => {
+                                    navigation.replace('Home')
+                                }}>
                                     <View className="p-3 rounded-full bg-purple-100">
                                         <Ionicons
                                             name="md-megaphone-outline"
@@ -73,7 +75,7 @@ const Schedule = ({ navigation }) => {
                                         <Text style={{ fontFamily: "Montserrat_500Medium" }} className="text-gray-700 text-base tracking-widest">{ notif.activity_name }</Text>
                                         <Text style={{ fontFamily: "Montserrat_300Light" }} className="text-gray-500 text-sm">{ notif.activity_description }</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             )
                         }) : <Text style={{ fontFamily: "Montserrat_300Light" }} className="text-gray-700 text-base tracking-widest text-center">No available notifications</Text>
                     }
