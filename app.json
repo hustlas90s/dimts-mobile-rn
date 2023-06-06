@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "dimts-mobile-app",
-    "slug": "dimts-mobile-app",
+    "slug": "dimts",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -43,8 +43,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "3e680087-8b07-4390-9932-5db5d99de51c"
+        "projectId": "754f1db4-9e21-4552-a82e-8e7cf7513081"
       }
-    }
+    },
+    "owner": "schieniezel"
   }
 }
